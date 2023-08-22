@@ -65,16 +65,10 @@ export const App = () => {
     evt.target.reset();
   };
 
-
   const handleLoadMore = async () => {
     setPage(page + 1);
-
-    setTimeout(() => {
-      scroll.scrollToBottom();
-    }, 1200);
-    
+    scroll.scrollToBottom();
   };
-
 
   return (
     <Wrapper>
@@ -85,8 +79,10 @@ export const App = () => {
         to="content"
         spy={ true }
         smooth={ true }
-        offset={ 70 }
-        duration={ 900 }><Pagination onClick={ handleLoadMore }>Load More</Pagination></LinkScroll> }
+        offset={ 8000 }
+        duration={ 7000 }
+        delay={ 1250 }
+        isDynamic={true}><Pagination onClick={ handleLoadMore }>Load More</Pagination></LinkScroll> }
       <Toaster position="top-right" reverseOrder={ true } />
       <div id='content'></div>
     </Wrapper>
