@@ -3,10 +3,14 @@ import { fetchImages } from 'API';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { Gallery } from '../ImageGallery/ImageGallery';
 import { Pagination } from '../LoadMore/LoadMore';
-import { Wrapper } from './App.styled'
+import { Wrapper, LinkScroll } from './App.styled'
 import { Loader } from '../Loader/Loader'
 import { notifyInfo, notifyInputQuerry, success } from '../Notify/notify'
+import {  animateScroll as scroll } from 'react-scroll';
+
 const { useState, useEffect } = require("react");
+
+
 
 
 export const App = () => {
@@ -61,18 +65,26 @@ export const App = () => {
     evt.target.reset();
   };
 
-  const handleLoadMore = () => {
+
+  const handleLoadMore = async () => {
     setPage(page + 1);
+    scroll.scrollToBottom();
   };
 
-    return (
-      <Wrapper>
-        <Searchbar onSubmit={ handleSubmit } />
-        { loading && <Loader /> }
-        { images.length > 0 && <Gallery imgItems={ images } /> } 
-        { images.length > 0 && <Pagination onClick={ handleLoadMore }>Load More</Pagination> }
-        <Toaster position="top-right" reverseOrder={true}/>
-      </Wrapper>
-    )
 
+  return (
+    <Wrapper>
+      <Searchbar onSubmit={ handleSubmit } />
+      { loading && <Loader /> }
+      { images.length > 0 && <Gallery imgItems={ images } /> }
+      { images.length > 0 && <LinkScroll activeClass="active"
+        to="content"
+        spy={ true }
+        smooth={ true }
+        offset={ -70 }
+        duration={ 500 }><Pagination onClick={ handleLoadMore }>Load More</Pagination></LinkScroll> }
+      <Toaster position="top-right" reverseOrder={ true } />
+      <div id='content'></div>
+    </Wrapper>
+  );
 }
