@@ -18,6 +18,7 @@ const customStyles = {
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    zIndex: '999999',
   },
 };
 
